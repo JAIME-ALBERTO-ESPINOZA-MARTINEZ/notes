@@ -1,8 +1,8 @@
-from .dataBase import DataBase
+from .dataBase import Database
 
 class TareaModel:
     def __init__(self):
-        self.db = DataBase()
+        self.db = Database()
         
     def listar_por_usuario(self, id_usuario):
         conn = self.db.get_connection()
@@ -13,11 +13,12 @@ class TareaModel:
         conn.close()
         return resultado
     
-    def crear(self, id_usuario, titulo, prioridad, clasificacion):
+    def crear(self, id_usuario,titulo, descripcion, pioridad, clasificacion):
         conn = self.db.get_connection()
         cursor = conn.cursor()
-        query = "INSERT INTO tareas (id_usuario, titulo, prioridad, clasificacion) VALUES (%s, %s, %s, %s)"
-        cursor.execute(query, (id_usuario, titulo, prioridad, clasificacion))
+        query = """INSERT INTO tareas (id_usuario, titulo, descripcion, prioridad, clasificacion) VALUES(%s, %s, %s,%s,%s)"""
+        cursor.execute(query, (id_usuario, titulo, descripcion, pioridad, clasificacion))
         conn.commit()
         conn.close()
+
         
